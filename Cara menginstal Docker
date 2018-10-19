@@ -1,2 +1,72 @@
 Docker 
 adalah sebuah software open source yang dipergunakan untuk keperluan virtualisasi sistem operasi, docker dipasang atau diinstal pada sebuah sistem operasi sebagai host dan dapat berjalan tanpa memakan penggunaan memori yang terlampau besar. Pengguna dapat memanfaatkan docker untuk mengkonfigurasi dan memasang sebuah software atau perangkat lunak dan dienkapsulasi pada sebuah container.
+
+Pada praktek kali ini, penulis menggunakan Centos 7 sebagai sistem operasi host. Langkah pertama adalah install docker pada CentOS 7.
+
+Install dan Konfigurasi Docker
+# yum install docker
+
+Start Docker!
+Setelah docker terpasang, langkah berikutnya adalah men-trigger service docker supaya dapat berjalan.
+# systemctl start docker 
+# systemctl status docker
+# systemctl enable docker
+
+Jalankan docker
+Setelah docker terkonfigurasi dan service dijalankan. Uji docker dengan test image.
+# docker run hello-world
+
+Jika berhasil maka akan muncul pesan seperti ini
+"Hello from Docker. This message shows that your installation appears to be working correctly."
+
+Unduh Docker Image
+Selepas menkonfigurasi dan menguji docker, unduh image yang dibutuhkan di docker hub. Docker hub tersebut dapat diakses di http://hub.docker.com Cari image yang diinginkan, misalnya image ubuntu :
+# docker search ubuntu
+
+Lalu pilih image yang diinginkan dan pull ke mesin CentOS
+# docker pull ubuntu
+
+Untuk melihat daftar image yang ada pada sebuah docker, ketikkan perintah ini
+# docker images
+
+Jika tidak memerlukan docker image ini lagi, gunakan perintah ini untuk menghapusnya
+# docker rmi ubuntu
+
+Menjalankan Docker Image
+Kita dapat menjalankan perintah pada sebuah docker image. Teknisnya pada saat docker menerima perintah untuk menjalankan sebuah command, maka docker image akan menyala, selepas itu akan mati lagi
+# docker run ubuntu cat /etc/issue
+
+Setelah itu, kita dapat menyalakan docker yang sudah dibuat
+# docker start idcontaineranda
+idcontaineranda ini gantilah dengan container id yang tepat
+
+untuk menghentikan docker tanpa menghapusnya lakukan ini
+# docker stop ubuntu_blah
+# docker ps
+
+Cara yang lebih elegan adalah dengan memberikan nama pada docker
+# docker run --name namadockeranda  ubuntu cat /etc/debian_version
+
+gunakan perintah ini untuk memanipulasi container
+# docker start myname
+# docker stats myname
+# docker top myname
+
+Jalankan session pada sebuah docker container
+menjalankan shell session pada sebuah container memerlukan sesi interaktif
+# docker run -it ubuntu bash
+-i  untuk memulai sesi interaktif
+-t  mengalokasikan sebuah tty dan attach stdin dan stdout
+ubuntu  : nama image yang kita pakai untuk membuat container
+bash  (/bin/bash) adalah perintah yang kita jalankan di dalam container ubunt
+
+ketikkan exit  untuk keluar dari sesi interaktif tersebut
+
+Untuk reconnect kembali ke container tadi
+# docker attach idcontaineranda
+
+untuk menghentikan container dari running state 	
+# docker kill idcontaineranda
+
+sumber :
+https://tutorlinux.com/belajar-docker-bagian-1-cara-menginstal-docker.html
