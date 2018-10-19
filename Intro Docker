@@ -1,0 +1,40 @@
+Apa itu Docker ?
+Docker adalah salah satu bentuk dari virtualisasi. Mari kita bahas dulu apa itu virtualisasi.
+
+Memahami Virtualisasi
+Virtualisasi adalah kegiatan membuat virtual machine, atau mesin palsu.
+
+Apa itu mesin palsu?
+Secara sederhana, virtual machine adalah lawan kata dari physical machine atau mesin fisik. Physical machine adalah server seperti yang biasa kita beli dan gunakan, memiliki berbagai komponen seperti power supply, mainboard, memory, disk, dan sebagainya. Komponen ini bisa kita lihat dan pegang bendanya.
+
+Virtual machine adalah seolah-olah ada mesin dan komponen tersebut. Aplikasi merasa bahwa dia berjalan sendirian dalam satu mesin, walaupun sebenarnya dia berjalan di atas mesin lain, bersama-sama dengan aplikasi lain.
+
+Untuk apa dipalsukan?
+Ada beberapa keperluan, diantaranya:
+    kita ingin menjalankan sistem operasi yang berbeda. Misalnya laptop kita menggunakan MacOS, tapi ingin menjalankan Windows atau Linux
+    kita ingin memaksimalkan penggunaan mesin fisik. Daripada satu aplikasi satu mesin, lebih baik beberapa aplikasi dijalankan di mesin yang sama. Virtualisasi menyediakan pemisahan antar aplikasi sehingga tidak saling mengganggu.
+    keterbatasan ruang dan sumber daya (listrik, AC)
+
+Karena ada beberapa sistem operasi yang berjalan dalam satu mesin fisik, kita menggunakan istilah host (tuan rumah) dan guest (tamu) untuk membedakannya. Host adalah sistem operasi yang benar-benar diinstal di mesin fisik. Guest adalah sistem yang diinstal di atas host.
+
+Secara garis besar, ada dua strategi yang umum digunakan dalam membuat virtualisasi ini:
+    hypervisor / full virtualization
+    container / partial virtualization
+
+Pada hypervisor, semua hardware dibuatkan palsunya, dan masing-masing sistem guest mendapatkan satu set hardware palsu tadi. 
+
+Sedangkan pada strategi container, semua guest berbagi pakai sebagian besar hardware. Host cuma mengatur pemisahan folder dan ijin akses antar guest sehingga tidak bisa saling melihat. 
+
+Masing-masing tentunya ada plus dan minusnya. Bila kita menggunakan hypervisor:
+    sistem operasi host dan guest tidak ada hubungan sama sekali. Jadi kita bisa menginstal sistem operasi apapun sebagai guest.
+    overhead lebih tinggi, karena adanya hardware palsu. Konsekuensinya, performance menjadi lebih terbatas. Penggunaan resource juga tidak bisa terlalu dioptimalkan, karena begitu sudah dibooking oleh salah satu guest tidak bisa digunakan guest lain, walaupun guest pertama sedang santai.
+    lebih mudah mengatur security, karena hubungan antara host dan guest sangat sedikit.
+
+
+    sistem operasi guest berbagi kernel dan aplikasi utama dengan host. Dengan demikian kita tidak bisa menginstal sistem operasi yang berbeda dengan host, seperti Windows di host Linux.
+    penggunaan resource hardware bisa lebih dioptimalkan. Karena host mengetahui secara detail kondisi masing-masing guest, maka dia bisa mengalokasikan resource yang menganggur kepada guest yang sedang sibuk.
+    pengaturan security menjadi lebih sulit, karena host dan guest berhubungan erat, sehingga mungkin terjadi kebocoran antar guest.
+
+
+sumber :
+https://software.endy.muhardin.com/linux/intro-docker/
